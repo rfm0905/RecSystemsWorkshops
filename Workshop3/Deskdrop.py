@@ -52,5 +52,26 @@ model = implicit.als.AlternatingLeastSquares(factors=20, regularization=0.1, ite
 alpha = 15
 data = (sparse_item_user * alpha).astype('double')
 model.fit(data)
-    
 
+item_id = 450
+similar = model.similar_items(item_id)
+for item, score in similar: 
+    print(score,'\t',trans.title.loc[trans.item == item].iloc[0], "\n")
+print()
+
+item_id = 291
+similar = model.similar_items(item_id)
+for item, score in similar: 
+    print(score,'\t',trans.title.loc[trans.item == item].iloc[0], "\n")
+print()
+
+user_id = 1
+recommendations = model.recommend(user_id, sparse_user_item, filter_already_liked_items=True)
+for item, score in recommendations: 
+    print(f'{score:0.5f}','\t',trans.title[trans.item == item].iloc[0], "\n")
+print()
+
+user_id = 50
+recommendations = model.recommend(user_id, sparse_user_item, filter_already_liked_items=True)
+for item, score in recommendations: 
+    print(f'{score:0.5f}','\t',trans.title[trans.item == item].iloc[0], "\n")
