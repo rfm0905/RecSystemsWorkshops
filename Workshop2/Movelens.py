@@ -22,15 +22,7 @@ reader = Reader(rating_scale=(1,5))
 data = Dataset.load_from_df(trans, reader)
 trainset, testset  = train_test_split(data, test_size=0.002)
 
-# Matrix Factorization
-# algo = SVD(n_factors = 50)
-
-sim_options = {
-    'name': 'pearson',
-    'user_based': False
-    }
-
-algo = KNNBasic(sim_options=sim_options)
+algo = SVD(n_factors = 50)
 algo.fit(trainset)
 preds = algo.test(testset)
 accuracy.mae(preds)
